@@ -1,10 +1,9 @@
 from flask import Flask , jsonify , request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-import os
+
 
 app = Flask(__name__)
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
@@ -28,6 +27,7 @@ by using marshmallow ,we serialize data from db
 class UserSchema(ma.Schema):
     class Meta:
         fields = ('id' , 'firstname' , 'lastname' , 'email' , 'password')
+
 
 
 @app.route('/users' , methods=['GET' , 'POST'])
@@ -110,9 +110,6 @@ def user(id):
         db.session.commit()
         return jsonify({'result' : 'users partial update is successful.'})
             
-    
-        
-
 
 if __name__ == "__main__":
     app.run(debug=True)
